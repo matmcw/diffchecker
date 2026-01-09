@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com; font-src 'self' data:;">
+	<title>Diffchecker</title>
+
+	<!-- diff2html CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+
+	<!-- highlight.js themes (auto dark/light) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" media="(prefers-color-scheme: light)" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" media="(prefers-color-scheme: dark)" />
+
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+	<!-- Input View -->
+	<div id="input-view" class="view active">
+		<header>
+			<div class="header-content">
+				<h1>Diffchecker</h1>
+				<span class="privacy-badge">Local only</span>
+				<button id="theme-toggle" class="theme-toggle" title="Toggle theme">&#9788;</button>
+			</div>
+		</header>
+
+		<main>
+			<div class="input-section">
+				<div class="input-pane">
+					<div class="pane-header">
+						<label for="original">Original</label>
+					</div>
+					<textarea id="original" placeholder="Paste original text here..." spellcheck="false"></textarea>
+				</div>
+				<div class="input-pane">
+					<div class="pane-header">
+						<label for="modified">Modified</label>
+					</div>
+					<textarea id="modified" placeholder="Paste modified text here..." spellcheck="false"></textarea>
+				</div>
+			</div>
+		</main>
+
+		<footer>
+			<button id="compare-btn">Compare</button>
+			<span class="hint">Ctrl + Enter</span>
+		</footer>
+	</div>
+
+	<!-- Diff View -->
+	<div id="diff-view" class="view">
+		<header>
+			<div class="header-content">
+				<button id="back-btn" class="back-btn">&larr; Back</button>
+				<h1>Diff Result</h1>
+			</div>
+		</header>
+
+		<main class="diff-main">
+			<div id="diff-output"></div>
+		</main>
+	</div>
+
+	<!-- Scripts -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/8.0.2/diff.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

@@ -3,70 +3,51 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com; font-src 'self' data:;">
 	<title>Diffchecker</title>
-
-	<!-- diff2html CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
-
-	<!-- highlight.js themes (auto dark/light) -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" media="(prefers-color-scheme: light)" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" media="(prefers-color-scheme: dark)" />
-
-	<!-- Custom styles -->
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'><rect x='3' y='3' width='7' height='18' rx='1'/><rect x='14' y='3' width='7' height='18' rx='1'/></svg>">
 	<link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-	<!-- Input View -->
-	<div id="input-view" class="view active">
-		<header>
-			<div class="header-content">
-				<h1>Diffchecker</h1>
-				<span class="privacy-badge">Local only</span>
-				<button id="theme-toggle" class="theme-toggle" title="Toggle theme">&#9788;</button>
-			</div>
-		</header>
-
-		<main>
-			<div class="input-section">
-				<div class="input-pane">
-					<div class="pane-header">
-						<label for="original">Original</label>
-					</div>
-					<textarea id="original" placeholder="Paste original text here..." spellcheck="false"></textarea>
-				</div>
-				<div class="input-pane">
-					<div class="pane-header">
-						<label for="modified">Modified</label>
-					</div>
-					<textarea id="modified" placeholder="Paste modified text here..." spellcheck="false"></textarea>
+	<header>
+		<div class="header-left">
+			<svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<rect x="3" y="3" width="7" height="18" rx="1"/>
+				<rect x="14" y="3" width="7" height="18" rx="1"/>
+			</svg>
+			<h1>Diffchecker</h1>
+		</div>
+		<div class="header-controls">
+			<div class="control-group">
+				<span class="control-label">Diff</span>
+				<div class="toggle-group">
+					<button class="toggle-btn" data-diff="line">Line</button>
+					<button class="toggle-btn active" data-diff="word">Word</button>
+					<button class="toggle-btn" data-diff="char">Char</button>
 				</div>
 			</div>
-		</main>
+			<button id="theme-toggle" class="theme-toggle" title="Toggle theme">&#9788;</button>
+		</div>
+	</header>
 
-		<footer>
-			<button id="compare-btn">Compare</button>
-			<span class="hint">Ctrl + Enter</span>
-		</footer>
-	</div>
-
-	<!-- Diff View -->
-	<div id="diff-view" class="view">
-		<header>
-			<div class="header-content">
-				<button id="back-btn" class="back-btn">&larr; Back</button>
-				<h1>Diff Result</h1>
+	<main>
+		<div class="input-row">
+			<div class="input-pane">
+				<div class="pane-header">
+					<label>Original</label>
+				</div>
+				<textarea id="left-input" placeholder="Paste original text here..." spellcheck="false"></textarea>
 			</div>
-		</header>
+			<div class="input-pane">
+				<div class="pane-header">
+					<label>Modified</label>
+				</div>
+				<textarea id="right-input" placeholder="Paste modified text here..." spellcheck="false"></textarea>
+			</div>
+		</div>
+		<div class="diff-output" id="diff-output"></div>
+	</main>
 
-		<main class="diff-main">
-			<div id="diff-output"></div>
-		</main>
-	</div>
-
-	<!-- Scripts -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/8.0.2/diff.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
 	<script src="js/app.js"></script>
 </body>
 </html>

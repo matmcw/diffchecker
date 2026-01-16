@@ -27,7 +27,16 @@
 	</header>
 
 	<main>
-		<div id="editor-container"></div>
+		<div id="editor-container">
+			<div class="placeholder-overlay" id="placeholder-left">
+				<pre>The quick <span class="pl-del">brown</span> fox
+jumps over the <span class="pl-del">lazy</span> dog</pre>
+			</div>
+			<div class="placeholder-overlay" id="placeholder-right">
+				<pre>The quick <span class="pl-add">red</span> fox
+jumps over the <span class="pl-add">sleepy</span> dog</pre>
+			</div>
+		</div>
 	</main>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>

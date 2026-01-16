@@ -163,16 +163,13 @@ require(['vs/editor/editor.main'], function() {
 		autoIndent: 'none'
 	});
 
-	// Create models
-	originalModel = monaco.editor.createModel(
-		'Paste or type your original text here...',
-		'plaintext'
-	);
+	// Placeholder elements
+	const placeholderLeft = document.getElementById('placeholder-left');
+	const placeholderRight = document.getElementById('placeholder-right');
 
-	modifiedModel = monaco.editor.createModel(
-		'Paste or type your modified text here...',
-		'plaintext'
-	);
+	// Create models (empty by default)
+	originalModel = monaco.editor.createModel('', 'plaintext');
+	modifiedModel = monaco.editor.createModel('', 'plaintext');
 
 	// Set the models
 	diffEditor.setModel({
@@ -180,8 +177,18 @@ require(['vs/editor/editor.main'], function() {
 		modified: modifiedModel
 	});
 
-	// Update language on content change (only if code mode is on)
+	// Update placeholder visibility
+	function updatePlaceholders() {
+		const origEmpty = originalModel.getValue().length === 0;
+		const modEmpty = modifiedModel.getValue().length === 0;
+
+		placeholderLeft.classList.toggle('hidden', !origEmpty);
+		placeholderRight.classList.toggle('hidden', !modEmpty);
+	}
+
+	// Update language and placeholders on content change
 	originalModel.onDidChangeContent(() => {
+		updatePlaceholders();
 		if (codeMode) {
 			const lang = detectLanguage(originalModel.getValue());
 			monaco.editor.setModelLanguage(originalModel, lang);
@@ -189,9 +196,13 @@ require(['vs/editor/editor.main'], function() {
 	});
 
 	modifiedModel.onDidChangeContent(() => {
+		updatePlaceholders();
 		if (codeMode) {
 			const lang = detectLanguage(modifiedModel.getValue());
 			monaco.editor.setModelLanguage(modifiedModel, lang);
 		}
 	});
+
+	// Initial placeholder state
+	updatePlaceholders();
 });

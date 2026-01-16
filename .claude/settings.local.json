@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial diffchecker implementation\n\nSide-by-side diff view with word-level highlighting, syntax highlighting,\nlight/dark theme toggle, and minimal sleek design.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: rebuild diffchecker with new architecture\n\nComplete rebuild of the diffchecker application:\n- Rebuilt index.html with two-textarea layout and inline diff-output display\n- Rebuilt css/styles.css with clean theme variables and side-by-side diff styling\n- Completely rewritten js/app.js with proper diff computation supporting Line/Word/Char modes\n- Removed dependency on diff2html in favor of custom rendering\n- Added real-time diff computation with debouncing\n- Improved responsive layout and theme toggle\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: rebuild diffchecker with new architecture\n\nComplete rebuild of the diffchecker application:\n- Rebuilt index.html with two-textarea layout and inline diff-output display\n- Rebuilt css/styles.css with clean theme variables and side-by-side diff styling\n- Completely rewritten js/app.js with proper diff computation supporting Line/Word/Char modes\n- Removed dependency on diff2html in favor of custom rendering\n- Added real-time diff computation with debouncing\n- Improved responsive layout and theme toggle\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)"
     ]
   }
 }

@@ -10,21 +10,27 @@ A sleek, client-side text comparison tool built with Monaco Editor. Compare text
 
 - **Side-by-side diff view** - See original and modified text side by side with inline diff highlighting
 - **Real-time comparison** - Changes are highlighted instantly as you type
-- **Code mode toggle** - Enable syntax highlighting, bracket matching, and auto-detection for 7+ languages
+- **Code mode toggle** - Enable syntax highlighting, bracket matching, and language auto-detection
 - **Dark/Light theme** - Toggle between themes or auto-follow system preference
 - **Privacy focused** - All processing happens in your browser, no data ever leaves your machine
 - **No build step** - Pure vanilla HTML, CSS, and JavaScript
 
 ## Supported Languages (Code Mode)
 
-When Code mode is enabled, the editor auto-detects:
-- JavaScript / TypeScript
-- Python
-- HTML
-- CSS
-- PHP
-- Java
-- C / C++
+When Code mode is enabled, the editor auto-detects and highlights 40+ languages:
+
+| | | | |
+|---|---|---|---|
+| JavaScript | TypeScript | Python | Java |
+| C / C++ | C# | Go | Rust |
+| Ruby | PHP | Swift | Kotlin |
+| HTML | CSS / SCSS | JSON | YAML |
+| Markdown | SQL | Shell / Bash | PowerShell |
+| Dockerfile | GraphQL | Lua | R |
+| F# | Dart | Scala | Perl |
+| Objective-C | Pascal | Julia | VB.NET |
+
+Language detection happens automatically based on content.
 
 ## Usage
 
@@ -44,8 +50,9 @@ When Code mode is enabled, the editor auto-detects:
 ## Tech Stack
 
 - **[Monaco Editor](https://microsoft.github.io/monaco-editor/)** - The code editor that powers VS Code
+- **[highlight.js](https://highlightjs.org/)** - Language auto-detection
 - **Vanilla CSS** - Custom theming with CSS variables
-- **No framework** - Zero dependencies beyond Monaco
+- **No framework** - Zero runtime dependencies, just CDN libraries
 
 ## Local Development
 

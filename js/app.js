@@ -105,28 +105,91 @@ function applyCodeMode() {
 	}
 }
 
+// Map highlight.js language names to Monaco language IDs
+const hljsToMonaco = {
+	'bash': 'shell',
+	'sh': 'shell',
+	'zsh': 'shell',
+	'bat': 'bat',
+	'c': 'c',
+	'cpp': 'cpp',
+	'c++': 'cpp',
+	'csharp': 'csharp',
+	'cs': 'csharp',
+	'css': 'css',
+	'dart': 'dart',
+	'diff': 'plaintext',
+	'dockerfile': 'dockerfile',
+	'elixir': 'plaintext',
+	'fsharp': 'fsharp',
+	'go': 'go',
+	'golang': 'go',
+	'graphql': 'graphql',
+	'groovy': 'plaintext',
+	'handlebars': 'handlebars',
+	'haskell': 'plaintext',
+	'html': 'html',
+	'xhtml': 'html',
+	'ini': 'ini',
+	'java': 'java',
+	'javascript': 'javascript',
+	'js': 'javascript',
+	'json': 'json',
+	'julia': 'julia',
+	'kotlin': 'kotlin',
+	'kt': 'kotlin',
+	'latex': 'plaintext',
+	'tex': 'plaintext',
+	'less': 'less',
+	'lua': 'lua',
+	'makefile': 'plaintext',
+	'markdown': 'markdown',
+	'md': 'markdown',
+	'nginx': 'plaintext',
+	'objective-c': 'objective-c',
+	'objectivec': 'objective-c',
+	'pascal': 'pascal',
+	'perl': 'perl',
+	'php': 'php',
+	'powershell': 'powershell',
+	'ps': 'powershell',
+	'ps1': 'powershell',
+	'python': 'python',
+	'py': 'python',
+	'r': 'r',
+	'ruby': 'ruby',
+	'rb': 'ruby',
+	'rust': 'rust',
+	'rs': 'rust',
+	'scala': 'scala',
+	'scss': 'scss',
+	'shell': 'shell',
+	'sql': 'sql',
+	'swift': 'swift',
+	'toml': 'plaintext',
+	'typescript': 'typescript',
+	'ts': 'typescript',
+	'vb': 'vb',
+	'vbnet': 'vb',
+	'xml': 'xml',
+	'yaml': 'yaml',
+	'yml': 'yaml'
+};
+
 function detectLanguage(text) {
-	if (text.includes('function') || text.includes('const ') || text.includes('let ') || text.includes('=>')) {
-		return 'javascript';
+	if (!text || text.trim().length === 0) {
+		return 'plaintext';
 	}
-	if (text.includes('def ') || (text.includes('import ') && text.includes(':'))) {
-		return 'python';
+
+	try {
+		const result = hljs.highlightAuto(text);
+		if (result.language && result.relevance > 5) {
+			return hljsToMonaco[result.language] || result.language;
+		}
+	} catch (e) {
+		// Fallback if highlight.js fails
 	}
-	if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('<div')) {
-		return 'html';
-	}
-	if (text.includes('{') && text.includes('}') && (text.includes('color:') || text.includes('background:'))) {
-		return 'css';
-	}
-	if (text.includes('<?php')) {
-		return 'php';
-	}
-	if (text.includes('package ') || text.includes('public class')) {
-		return 'java';
-	}
-	if (text.includes('#include') || text.includes('int main')) {
-		return 'cpp';
-	}
+
 	return 'plaintext';
 }
 

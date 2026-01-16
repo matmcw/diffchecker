@@ -14,18 +14,25 @@ if (savedTheme === 'dark' || savedTheme === 'light') {
 } else {
 	isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
+
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+
+// Set initial checkbox state
+themeToggle.checked = isDark;
 applyTheme();
 
 // Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
 	if (!userOverride) {
 		isDark = e.matches;
+		themeToggle.checked = isDark;
 		applyTheme();
 	}
 });
 
-document.getElementById('theme-toggle').addEventListener('click', () => {
-	isDark = !isDark;
+themeToggle.addEventListener('change', (e) => {
+	isDark = e.target.checked;
 	userOverride = true;
 	applyTheme();
 	localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -33,7 +40,7 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
 
 function applyTheme() {
 	document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-	document.getElementById('theme-toggle').innerHTML = isDark ? '&#9790;' : '&#9788;';
+	themeIcon.innerHTML = isDark ? '&#9790;' : '&#9788;';
 
 	// Update Monaco theme if editor exists
 	if (diffEditor) {
@@ -138,7 +145,7 @@ require(['vs/editor/editor.main'], function() {
 		theme: isDark ? 'vs-dark' : 'vs',
 		automaticLayout: true,
 		renderSideBySide: true,
-		enableSplitViewResizing: true,
+		enableSplitViewResizing: false,
 		originalEditable: true,
 		readOnly: false,
 		minimap: { enabled: false },
@@ -149,18 +156,19 @@ require(['vs/editor/editor.main'], function() {
 		wordWrap: 'on',
 		diffWordWrap: 'on',
 		scrollbar: {
-			vertical: 'auto',
-			horizontal: 'auto',
-			verticalScrollbarSize: 8,
-			horizontalScrollbarSize: 8,
+			vertical: 'hidden',
+			horizontal: 'hidden',
 			useShadows: false
 		},
+		overviewRulerLanes: 3,
 		hideCursorInOverviewRuler: true,
 		bracketPairColorization: { enabled: false },
 		matchBrackets: 'never',
 		autoClosingBrackets: 'never',
 		autoClosingQuotes: 'never',
-		autoIndent: 'none'
+		autoIndent: 'none',
+		renderIndicators: false,
+		renderMarginRevertIcon: false
 	});
 
 	// Placeholder elements
@@ -177,6 +185,29 @@ require(['vs/editor/editor.main'], function() {
 		modified: modifiedModel
 	});
 
+	// Update placeholder positions based on Monaco layout
+	function updatePlaceholderPositions() {
+		const origEditor = diffEditor.getOriginalEditor();
+		const modEditor = diffEditor.getModifiedEditor();
+
+		if (origEditor && modEditor) {
+			const origContainer = origEditor.getDomNode();
+			const modContainer = modEditor.getDomNode();
+
+			if (origContainer && modContainer) {
+				const origRect = origContainer.getBoundingClientRect();
+				const modRect = modContainer.getBoundingClientRect();
+				const containerRect = container.getBoundingClientRect();
+
+				placeholderLeft.style.left = (origRect.left - containerRect.left) + 'px';
+				placeholderLeft.style.width = origRect.width + 'px';
+
+				placeholderRight.style.left = (modRect.left - containerRect.left) + 'px';
+				placeholderRight.style.width = modRect.width + 'px';
+			}
+		}
+	}
+
 	// Update placeholder visibility
 	function updatePlaceholders() {
 		const origEmpty = originalModel.getValue().length === 0;
@@ -184,7 +215,22 @@ require(['vs/editor/editor.main'], function() {
 
 		placeholderLeft.classList.toggle('hidden', !origEmpty);
 		placeholderRight.classList.toggle('hidden', !modEmpty);
+		updatePlaceholderPositions();
 	}
+
+	// Listen for layout changes
+	diffEditor.onDidUpdateDiff(() => {
+		updatePlaceholderPositions();
+	});
+
+	// Also update on window resize
+	window.addEventListener('resize', updatePlaceholderPositions);
+
+	// Observe container for Monaco layout changes
+	const resizeObserver = new ResizeObserver(() => {
+		setTimeout(updatePlaceholderPositions, 50);
+	});
+	resizeObserver.observe(container);
 
 	// Update language and placeholders on content change
 	originalModel.onDidChangeContent(() => {
@@ -203,6 +249,8 @@ require(['vs/editor/editor.main'], function() {
 		}
 	});
 
-	// Initial placeholder state
+	// Initial placeholder state (with delay for Monaco to fully render)
 	updatePlaceholders();
+	setTimeout(updatePlaceholderPositions, 100);
+	setTimeout(updatePlaceholderPositions, 500);
 });

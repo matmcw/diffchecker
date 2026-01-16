@@ -37,16 +37,6 @@ body {
 	flex-direction: column;
 }
 
-/* Hide native scrollbars globally - Monaco has its own */
-::-webkit-scrollbar {
-	display: none;
-}
-
-* {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
-}
-
 /* Header */
 header {
 	display: flex;
@@ -56,6 +46,8 @@ header {
 	border-bottom: 1px solid var(--border);
 	flex-shrink: 0;
 	background: var(--bg);
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 .header-left {
@@ -78,24 +70,6 @@ h1 {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
-}
-
-.theme-toggle {
-	width: 2rem;
-	height: 2rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: transparent;
-	border: 1px solid var(--border);
-	color: var(--text);
-	font-size: 1rem;
-	cursor: pointer;
-	transition: background-color 0.15s;
-}
-
-.theme-toggle:hover {
-	background: var(--bg-secondary);
 }
 
 /* Toggle switch */
@@ -147,6 +121,31 @@ h1 {
 	letter-spacing: 0.05em;
 }
 
+.toggle-icon {
+	font-size: 1rem;
+	line-height: 1;
+	color: var(--text);
+}
+
+.github-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	color: var(--text-muted);
+	transition: color 0.15s ease;
+}
+
+.github-link:hover {
+	color: var(--text);
+}
+
+.github-link svg {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
 /* Main */
 main {
 	flex: 1;
@@ -162,12 +161,61 @@ main {
 	position: relative;
 }
 
+/* Hide Monaco diff indicators (+/-) */
+.monaco-diff-editor .insert-sign,
+.monaco-diff-editor .delete-sign,
+.monaco-diff-editor .dirty-diff-added,
+.monaco-diff-editor .dirty-diff-removed {
+	display: none !important;
+}
+
+/* Hide scrollbar borders/decorations but keep scrollbar functional */
+.monaco-editor .scroll-decoration,
+.monaco-diff-editor .scroll-decoration,
+.monaco-editor .decorationsOverviewRuler,
+.monaco-editor .minimap-shadow-visible,
+.monaco-editor .minimap-shadow-hidden {
+	display: none !important;
+}
+
+.monaco-editor .lines-content,
+.monaco-editor .margin,
+.monaco-editor .overflow-guard {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.monaco-editor .editor-scrollable {
+	border-right: none !important;
+}
+
+.monaco-diff-editor .diffOverview {
+	border-left: none !important;
+}
+
+/* Remove shadow between diff panes and add simple border */
+.monaco-diff-editor .editor.modified {
+	box-shadow: none !important;
+	border-left: 1px solid var(--border) !important;
+}
+
+.monaco-diff-editor .diffOverviewRuler {
+	box-shadow: none !important;
+}
+
+/* Make line numbers unselectable */
+.monaco-editor .margin,
+.monaco-editor .line-numbers,
+.monaco-editor .margin-view-overlays {
+	user-select: none !important;
+	-webkit-user-select: none !important;
+}
+
 /* Placeholder overlays */
 .placeholder-overlay {
 	position: absolute;
 	top: 0;
 	height: 100%;
-	width: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -175,19 +223,13 @@ main {
 	z-index: 10;
 	opacity: 0.5;
 	transition: opacity 0.2s ease;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 .placeholder-overlay.hidden {
 	opacity: 0;
 	pointer-events: none;
-}
-
-#placeholder-left {
-	left: 0;
-}
-
-#placeholder-right {
-	right: 0;
 }
 
 .placeholder-overlay pre {

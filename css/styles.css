@@ -5,6 +5,7 @@
 	--text: #1a1a1a;
 	--text-muted: #666666;
 	--border: #e0e0e0;
+	--transition-duration: 0.3s;
 }
 
 [data-theme="dark"] {
@@ -19,6 +20,9 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	transition: background-color var(--transition-duration) ease,
+	            color var(--transition-duration) ease,
+	            border-color var(--transition-duration) ease;
 }
 
 html, body {
@@ -31,7 +35,16 @@ body {
 	color: var(--text);
 	display: flex;
 	flex-direction: column;
-	transition: background-color 0.2s, color 0.2s;
+}
+
+/* Hide native scrollbars globally - Monaco has its own */
+::-webkit-scrollbar {
+	display: none;
+}
+
+* {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 /* Header */
@@ -83,6 +96,55 @@ h1 {
 
 .theme-toggle:hover {
 	background: var(--bg-secondary);
+}
+
+/* Toggle switch */
+.toggle-switch {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	user-select: none;
+}
+
+.toggle-switch input {
+	display: none;
+}
+
+.toggle-slider {
+	width: 2.5rem;
+	height: 1.25rem;
+	background: var(--border);
+	border-radius: 1rem;
+	position: relative;
+	transition: background-color 0.2s ease;
+}
+
+.toggle-slider::after {
+	content: '';
+	position: absolute;
+	width: 1rem;
+	height: 1rem;
+	background: var(--bg);
+	border-radius: 50%;
+	top: 0.125rem;
+	left: 0.125rem;
+	transition: transform 0.2s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+	background: var(--text);
+}
+
+.toggle-switch input:checked + .toggle-slider::after {
+	transform: translateX(1.25rem);
+}
+
+.toggle-label {
+	font-size: 0.75rem;
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
 }
 
 /* Main */

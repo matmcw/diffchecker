@@ -4,57 +4,57 @@ Project context for Claude Code.
 
 ## Project Overview
 
-A client-side text diff tool for GitHub Pages. Static site with no build process.
+A client-side text diff tool for GitHub Pages using Monaco Editor. Static site with no build process.
 
 ## Tech Stack
 
-- Vanilla HTML/CSS/JavaScript
-- jsdiff library (CDN: https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js)
+- Vanilla HTML/CSS/JavaScript (no framework)
+- Monaco Editor (CDN) - diff viewing and syntax highlighting
+- highlight.js (CDN) - language auto-detection
 - CSS custom properties for theming
 
 ## File Structure
 
 ```
-index.html       - Main page with header controls, input textareas, and diff output container
-css/styles.css   - Theme variables (:root and [data-theme="dark"]), layout, and diff styling
-js/app.js        - Diff logic using jsdiff library (Diff.diffArrays, Diff.diffWords, Diff.diffChars)
+index.html       - Main page with header controls and editor container
+css/styles.css   - Theme variables, layout, Monaco overrides
+js/app.js        - Monaco diff editor setup, theme handling, language detection
 ```
 
 ## Key Implementation Details
 
-### Diff Computation (js/app.js)
+### Monaco Diff Editor (js/app.js)
 
-- Uses `Diff.diffArrays()` for line-level comparison
-- Pairs removed/added blocks for inline highlighting
-- `computeInlineDiff()` applies word or char diff based on selected mode
-- 150ms debounce on input for performance
+- `monaco.editor.createDiffEditor()` for side-by-side comparison
+- Two editable models: `originalModel` and `modifiedModel`
+- Real-time diff updates as user types
+- Code mode toggle enables/disables syntax features
+
+### Language Detection
+
+- Uses `hljs.highlightAuto()` for language detection
+- `hljsToMonaco` object maps highlight.js IDs to Monaco language IDs
+- Relevance threshold (>5) prevents false positives
+- Falls back to 'plaintext' for unrecognized content
 
 ### Theme System (css/styles.css)
 
-- CSS variables defined in `:root` (light) and `[data-theme="dark"]`
+- CSS variables in `:root` (light) and `[data-theme="dark"]`
 - Theme preference stored in localStorage under key `theme`
 - Falls back to `prefers-color-scheme` media query
+- Monaco theme synced via `monaco.editor.setTheme()`
 
-### Diff Output Structure
+### Placeholder Overlays
 
-```html
-<div class="diff-table">
-  <div class="diff-row">
-    <div class="diff-side diff-del|diff-add|diff-empty-line">
-      <div class="diff-num">1</div>
-      <div class="diff-content">text with <span class="hl-del">highlights</span></div>
-    </div>
-    <!-- right side -->
-  </div>
-</div>
-```
+- Custom placeholder text shown when editors are empty
+- Positioned dynamically based on Monaco editor layout
+- Hidden when content is entered
 
 ## Commands
 
 No build or install commands. Open index.html in browser or serve with any static server.
 
 ```bash
-# Local development (optional)
 npx serve .
 # or
 python -m http.server 8000
@@ -62,4 +62,4 @@ python -m http.server 8000
 
 ## Project Size
 
-Small to Medium - static site suitable for quick iteration. Version control is active.
+Small to Medium - static site with version control.

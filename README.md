@@ -1,6 +1,6 @@
 # Diffchecker
 
-A sleek, client-side text comparison tool built with Monaco Editor. Compare text or code with real-time diff highlighting, syntax highlighting, and a clean minimal interface.
+A sleek text comparison tool built with Monaco Editor. Compare and edit text or code with real-time diff highlighting.
 
 **[Live Demo](https://matmcw.github.io/diffchecker)**
 
@@ -88,8 +88,7 @@ diffchecker/
 │   └── styles.css      # Theme variables and custom styling
 ├── js/
 │   └── app.js          # Editor initialization and diff logic
-├── README.md           # This file
-└── CLAUDE.md           # Development notes
+└── README.md
 ```
 
 ## Privacy

@@ -17,14 +17,16 @@ When Code mode is enabled, the editor auto-detects and highlights syntax for 40+
 
 | | | | |
 |---|---|---|---|
-| JavaScript | TypeScript | Python | Java |
-| C / C++ | C# | Go | Rust |
-| Ruby | PHP | Swift | Kotlin |
-| HTML | CSS / SCSS | JSON | YAML |
-| Markdown | SQL | Shell / Bash | PowerShell |
-| Dockerfile | GraphQL | Lua | R |
-| F# | Dart | Scala | Perl |
-| Objective-C | Pascal | Julia | VB.NET |
+| Python | Rust | R | Markdown |
+| JavaScript* | Swift | PowerShell | Dockerfile |
+| Java | Kotlin | Dart | GraphQL |
+| TypeScript* | Ruby | Scala | F# |
+| C / C++ | SQL | Lua | Objective-C |
+| C# | Shell / Bash | Perl | Julia |
+| Go | HTML* | YAML | Pascal |
+| PHP | CSS / SCSS* | JSON* | VB.NET |
+
+<sub>*These languages also include some type of error checking</sub>
 
 ## Technologies Used
 

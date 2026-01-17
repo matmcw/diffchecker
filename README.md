@@ -2,22 +2,18 @@
 
 A sleek text comparison tool built with Monaco Editor. Compare and edit text or code with real-time diff highlighting.
 
-**[Live Demo](https://matmcw.github.io/diffchecker)**
-
-![Diffchecker Screenshot](https://img.shields.io/badge/Monaco-Editor-blue) ![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-green) ![No Backend](https://img.shields.io/badge/100%25-Client--Side-orange)
+> **[Project Page](https://matmcw.github.io/diffchecker)**
 
 ## Features
 
-- **Side-by-side diff view** - See original and modified text side by side with inline diff highlighting
-- **Real-time comparison** - Changes are highlighted instantly as you type
-- **Code mode toggle** - Enable syntax highlighting, bracket matching, and language auto-detection
-- **Dark/Light theme** - Toggle between themes or auto-follow system preference
-- **Privacy focused** - All processing happens in your browser, no data ever leaves your machine
-- **No build step** - Pure vanilla HTML, CSS, and JavaScript
+- **Editable** - Modify text directly in the panes. Changes are highlighted as you type.
+- **Code mode** - Enable syntax highlighting, bracket matching, and language auto-detection
+- **Dark/Light mode** - Toggle between themes, defaults to system preference
+- **Private** - No data ever leaves your browser
 
 ## Supported Languages (Code Mode)
 
-When Code mode is enabled, the editor auto-detects and highlights 40+ languages:
+When Code mode is enabled, the editor auto-detects and highlights syntax for 40+ languages:
 
 | | | | |
 |---|---|---|---|
@@ -30,78 +26,11 @@ When Code mode is enabled, the editor auto-detects and highlights 40+ languages:
 | F# | Dart | Scala | Perl |
 | Objective-C | Pascal | Julia | VB.NET |
 
-Language detection happens automatically based on content.
-
-## Usage
-
-1. Open the [live demo](https://matmcw.github.io/diffchecker) or `index.html` locally
-2. Paste or type your original text in the left pane
-3. Paste or type your modified text in the right pane
-4. Differences are highlighted automatically in red (deletions) and green (additions)
-
-### Controls
-
-| Control | Description |
-|---------|-------------|
-| **Code** toggle | Enable/disable code features (syntax highlighting, brackets) |
-| **Theme** toggle | Switch between light and dark mode |
-| **GitHub** icon | Link to this repository |
-
-## Tech Stack
+## Technologies Used
 
 - **[Monaco Editor](https://microsoft.github.io/monaco-editor/)** - The code editor that powers VS Code
 - **[highlight.js](https://highlightjs.org/)** - Language auto-detection
-- **Vanilla CSS** - Custom theming with CSS variables
-- **No framework** - Zero runtime dependencies, just CDN libraries
-
-## Local Development
-
-No build process required. Just serve the files:
-
-```bash
-# Using Python
-python -m http.server 8000
-
-# Using Node.js
-npx serve
-
-# Or simply open index.html in your browser
-```
-
-## Deployment
-
-This project is designed for GitHub Pages:
-
-1. Fork or clone this repository
-2. Push to your GitHub account
-3. Enable GitHub Pages in Settings > Pages
-4. Select your branch and save
-
-Your diffchecker will be live at `https://yourusername.github.io/diffchecker`
-
-## File Structure
-
-```
-diffchecker/
-├── index.html          # Main HTML with Monaco loader
-├── css/
-│   └── styles.css      # Theme variables and custom styling
-├── js/
-│   └── app.js          # Editor initialization and diff logic
-└── README.md
-```
 
 ## Privacy
 
-All text comparison happens entirely in your browser:
-- No data is sent to any server
-- No analytics or tracking
-- Theme preference stored in localStorage (optional)
-
-## License
-
-MIT License - feel free to use, modify, and distribute.
-
----
-
-Made with Monaco Editor
+All text comparison happens entirely in your browser. No data is ever sent to any server.
